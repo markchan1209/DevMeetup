@@ -9,17 +9,23 @@ export const store = new Vuex.Store({
             { imageUrl: 'https://media.timeout.com/images/104692494/1372/772/image.jpg',
               id: 'asdasdasd001',
               title: 'New York',
-              date: '2017-07-19'
+              date: '2017-07-19',
+              location: 'New York',
+              description: 'New York Pic'
             },
             { imageUrl: 'https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/eiffel-tower-paris-p.jpg?imwidth=1240',
               id: 'asdasdasd002',
               title: 'Paris',
-              date: '2017-07-20'
+              date: '2017-07-20',
+              location: 'Paris',
+              description: 'Paris Pic'
             },
             { imageUrl: 'https://cdn.passporthealthglobal.com/wp-content/uploads/2017/12/advice-vaccines-taiwan.jpg?x10491',
               id: 'asdasdasd003',
               title: 'Taiwan',
-              date: '2017-07-21'
+              date: '2017-07-21',
+              location: 'Taiwan',
+              description: 'Taiwan Pic'
             }
         ],
         user: {
@@ -40,6 +46,7 @@ export const store = new Vuex.Store({
                 imageUrl: payload.imageUrl,
                 description: payload.description,
                 date: payload.date,
+                time: payload.time,
                 id:'LKJAkljsdjklasd12'
             }
             commit('createMeetup', meetup)
