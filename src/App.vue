@@ -1,28 +1,11 @@
 <template>
-  <v-app>
-   
-      <v-toolbar dark class="primary">       
-        <v-toolbar-title>
-          <router-link to="/" tag="span" style="cursor: pointer">DevMeetUp</router-link> 
-        </v-toolbar-title>
-         <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"
-         class="hidden-sm-and-up"></v-toolbar-side-icon>
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-xs-only">          
-          <v-btn flat v-for="item in menuItems" 
-          :key="item.title"
-          router
-          :to="item.link">
-            <v-icon>{{item.icon}}</v-icon>
-            {{item.title}}
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-         <v-navigation-drawer temporary v-model="sideNav">
+  <v-app>   
+
+      <!-- <v-navigation-drawer temporary v-model="sideNav">
         <v-list>
-          <v-list-tile v-for="item in menuItems" 
+          <v-list-tile 
+          v-for="item in menuItems" 
           :key="item.title"
-          router
           :to="item.link">
             <v-list-tile-action>
               <v-icon>
@@ -32,11 +15,32 @@
             <v-list-tile-content>{{item.title}}</v-list-tile-content>
           </v-list-tile>
         </v-list>
-      </v-navigation-drawer>
+      </v-navigation-drawer>   -->
+
+      <v-toolbar dark class="primary">   
+        <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"
+         class="hidden-sm-and-up"></v-toolbar-side-icon>
+
+        <v-toolbar-title>
+          <router-link to="/" tag="span" style="cursor: pointer">DevMeetUp</router-link> 
+        </v-toolbar-title>         
+        <v-spacer></v-spacer>
+
+        <v-toolbar-items class="hidden-xs-only">          
+          <v-btn flat v-for="item in menuItems" 
+          :key="item.title"
+          router
+          :to="item.link">
+            <v-icon>{{item.icon}}</v-icon>
+            {{item.title}}
+          </v-btn>
+        </v-toolbar-items>
+
+      </v-toolbar>
+    
      <main>
-       <router-view></router-view>
-    </main>
-   
+        <router-view></router-view>
+     </main>
   </v-app>
 </template>
 
@@ -57,4 +61,6 @@ export default {
 };
 </script>
 
-
+<style lang="stylus">
+  @import './stylus/main'
+</style>
