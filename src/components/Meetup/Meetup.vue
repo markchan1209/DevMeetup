@@ -13,7 +13,7 @@
                     </v-card-media>
                     <v-card-text>
                         <div>{{meetup.date}} - Where it takes place</div>
-                        <div>介紹</div>
+                        <div>{{meetup.description}}</div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
