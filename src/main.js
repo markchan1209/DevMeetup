@@ -5,11 +5,11 @@ import router from './router'
 import { store } from './store'
 import DateFilter from './filters/date'
 import * as firebase from 'firebase'
-
+import AlertCmp from './components/Shared/Alert.vue'
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.filter('datefilter', DateFilter)
-
+Vue.component('app-alert', AlertCmp)
 new Vue({
   el:'#app',
   router,
