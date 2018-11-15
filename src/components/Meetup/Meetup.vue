@@ -12,7 +12,7 @@
                         >
                     </v-img>
                     <v-card-text>
-                        <div>{{meetup.date}} - {{meetup.location}}</div>
+                        <div>{{meetup.date | datefilter}} - {{meetup.location}}</div>
                         <div>{{meetup.description}}</div>
                     </v-card-text>
                     <v-card-actions>

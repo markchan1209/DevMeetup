@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import * as firebase from 'firebase'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -9,21 +9,21 @@ export const store = new Vuex.Store({
             { imageUrl: 'https://media.timeout.com/images/104692494/1372/772/image.jpg',
               id: 'asdasdasd001',
               title: 'New York',
-              date: '2017-07-19',
+              date: new Date(),
               location: 'New York',
               description: 'New York Pic'
             },
             { imageUrl: 'https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/eiffel-tower-paris-p.jpg?imwidth=1240',
               id: 'asdasdasd002',
               title: 'Paris',
-              date: '2017-07-20',
+              date: new Date(),
               location: 'Paris',
               description: 'Paris Pic'
             },
             { imageUrl: 'https://cdn.passporthealthglobal.com/wp-content/uploads/2017/12/advice-vaccines-taiwan.jpg?x10491',
               id: 'asdasdasd003',
               title: 'Taiwan',
-              date: '2017-07-21',
+              date: new Date(),
               location: 'Taiwan',
               description: 'Taiwan Pic'
             }
@@ -36,6 +36,9 @@ export const store = new Vuex.Store({
     mutations:{
         createMeetup (state, payload) {
             state.loadedMeetups.push(payload)
+        },
+        setUser (state, payload) {
+            state.user = payload
         }
     },
     actions: {
@@ -51,6 +54,40 @@ export const store = new Vuex.Store({
             }
             commit('createMeetup', meetup)
             // Reach out to firebase and store it
+        },
+        signUserUp ({commit}, payload) {
+            firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                .then(
+                    user => {
+                        const newUser = {
+                            id: user.uid,
+                            registeredMeetups: []
+                        }
+                        commit('setUser', newUser)
+                    }
+                )
+                .catch(
+                    error => {
+                        console.log(error)
+                    }
+                )
+        },
+        signUserIn ({commit}, payload) {
+            firebase.auth().signInWithEmailAndPassword(payload.email,payload.password)
+            .then(
+                user => {
+                    const newUser = {
+                        id: user.uid,
+                        registeredMeetups: []
+                    }
+                    commit('setUser', newUser)
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error)
+                }
+            )
         }
      },
     getters: {

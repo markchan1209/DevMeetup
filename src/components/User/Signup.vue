@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
-                            <form @submit.prevent="onSignin">
+                            <form @submit.prevent="onSignup">
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
@@ -27,9 +27,20 @@
                                         type="password"
                                         required></v-text-field>
                                     </v-flex>
-                                </v-layout>                               
+                                </v-layout>
                                 <v-layout row>
-                                    <v-btn type="submit"> Sign in</v-btn>
+                                    <v-flex xs12>
+                                        <v-text-field
+                                        name="confirmPassword"
+                                        label="Confirm Password"
+                                        id="confirmPassword"
+                                        v-model="confirmPassword"
+                                        type="password"
+                                        :rules="[comparePasswords]"></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row>
+                                    <v-btn type="submit"> Sign up</v-btn>
                                 </v-layout>
                             </form>
                         </v-container>
@@ -45,10 +56,14 @@ export default {
     data () {
         return {
             email:'',
-            password: ''
+            password: '',
+            confirmPassword: ''
         }
     },
-    computed: {        
+    computed: {
+        comparePasswords () {
+            return this.password !== this.confirmPassword ? 'Passwords do not match': ''
+        },
         user () {
             return this.$store.getters.user
         }
@@ -62,10 +77,10 @@ export default {
         }
     },
     methods: {
-        onSignin () {
+        onSignup () {
             // Vuex
             // console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
-            this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+            this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
         }
     }
 }

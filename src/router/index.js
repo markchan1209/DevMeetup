@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import Meetups from '@/components/Meetup/Meetups'
 import CreateMeetup from '@/components/Meetup/CreateMeetup'
 import Profile from '@/components/User/Profile'
-import Signout from '@/components/User/Signout'
+import Signup from '@/components/User/Signup'
 import Signin from '@/components/User/Signin'
 import Meetup from '@/components/Meetup/Meetup'
 
@@ -39,9 +39,9 @@ export default new VueRouter({
             component: Profile
         },
         {
-            path: '/Signout',
-            name: 'Sign Out',
-            component: Signout
+            path: '/Signup',
+            name: 'Sign Up',
+            component: Signup
         },
         {
             path: '/Signin',
