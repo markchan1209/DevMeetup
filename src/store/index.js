@@ -6,15 +6,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state:{
-        loadedMeetups: [
-            { imageUrl: 'https://media.timeout.com/images/104692494/1372/772/image.jpg',
-              id: 'asdasdasd001',
-              title: 'New York',
-              date: new Date(),
-              location: 'New York',
-              description: 'New York Pic'
-            }
-        ],
+        loadedMeetups: [],
         user: null,
         loading: false,
         error: null,
@@ -86,7 +78,7 @@ export const store = new Vuex.Store({
                 title: payload.title,
                 location: payload.location,
                 description: payload.description,
-                date: payload.date,
+                date: payload.date.toISOString(),
                 creatorId: getters.user.id
             }
             let imageUrl
@@ -171,7 +163,7 @@ export const store = new Vuex.Store({
                 updateObj.description = payload.description
             }
             if (payload.date) {
-                updateObj.date = payload.date
+                updateObj.date = payload.date.toISOString()
             }
             firebase.database().ref('meetups').child(payload.id).update(updateObj)
                 .then(() => {
