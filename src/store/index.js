@@ -12,20 +12,6 @@ export const store = new Vuex.Store({
               date: new Date(),
               location: 'New York',
               description: 'New York Pic'
-            },
-            { imageUrl: 'https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/eiffel-tower-paris-p.jpg?imwidth=1240',
-              id: 'asdasdasd002',
-              title: 'Paris',
-              date: new Date(),
-              location: 'Paris',
-              description: 'Paris Pic'
-            },
-            { imageUrl: 'https://cdn.passporthealthglobal.com/wp-content/uploads/2017/12/advice-vaccines-taiwan.jpg?x10491',
-              id: 'asdasdasd003',
-              title: 'Taiwan',
-              date: new Date(),
-              location: 'Taiwan',
-              description: 'Taiwan Pic'
             }
         ],
         user: null,
@@ -83,15 +69,34 @@ export const store = new Vuex.Store({
             const meetup = {
                 title: payload.title,
                 location: payload.location,
-                imageUrl: payload.imageUrl,
                 description: payload.description,
                 date: payload.date,
                 creatorId: getters.user.id
             }
+            let imageUrl
+            let key
             firebase.database().ref('meetups').push(meetup)
                 .then((data) => {
-                    const key = data.key
-                    commit('createMeetup', { ...meetup, id: key })
+                    key = data.key                    
+                    return key
+                })
+                .then(key => {
+                    const filename = payload.image.name
+                    const ext = filename.slice(filename.lastIndexOf('.'))
+                    return firebase.storage().ref('meetups/' + key + '.' + ext).put(payload.image)
+                })
+                .then(fileData => {
+                    return fileData.ref.getDownloadURL()                    
+                })
+                .then(imageUrl => {
+                    return firebase.database().ref('meetups').child(key).update({imageUrl: imageUrl})
+                })
+                .then(() => {
+                    commit('createMeetup', { 
+                        ...meetup,
+                        imageUrl: imageUrl,
+                        id: key
+                     })
                 })
                 .catch((error) => {
                     console.log(error)
