@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-card>
-                    <v-card-title >
+                    <v-card-title>
                         <h6 class="primary--text">{{ meetup.title}}</h6> 
                     </v-card-title>
                     <v-img
