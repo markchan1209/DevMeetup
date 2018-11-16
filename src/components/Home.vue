@@ -70,5 +70,6 @@ export default {
         font-size: 2em;
         padding: 30px;
     }
+   
 </style>
 
